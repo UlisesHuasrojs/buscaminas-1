@@ -30,6 +30,7 @@ function setup()
   // Modificar/completar
   //ponerMinaCasillero(4, 5); //pone una mina en la columna 4, fila 5
   casillerosSinDescubrir = COLUMNAS * FILAS
+  ponerMinasTablero();
 }
 
 
@@ -46,16 +47,14 @@ function draw() {
         //pinta el casillero clickeado. Modificar/completar
         pintarCasillero(columnaPresionada, filaPresionada, COLOR_CASILLERO_SIN_MINA);
       }
+      if (casillerosSinDescubrir == CANTIDAD_MINAS){
+        ganoElJuego();
+      }
     }
     else
     {
       pintarCasillero(columnaPresionada, filaPresionada, COLOR_CASILLERO_MARCADO);
     }
-
-     
-
-
-    
     hizoClick = false;  //Indico que ya "procesé" el click del usuario. NO modificar
   }
   
@@ -64,20 +63,54 @@ function draw() {
 
 function ganoElJuego()
 {
-  return false;   //Esto hace que NUNCA gane el juego. Modificar/completar
+  ganar();
+  return true;
 }
 
 function ponerMinasTablero()
 {
-  // Modificar/completar
+  for (var i = 0; i < 10; i++)
+  {
+    numeroAleatorio = floor(random(0, 10));
+    numeroAleatorio2 = floor(random(0, 10));
+    ponerMinaCasillero(numeroAleatorio, numeroAleatorio2);
+    if(tieneMinaCasillero(numeroAleatorio, numeroAleatorio2))
+    {
+      return true;
+      //esto se ejecuta si tiene una mina
+    }
+    else
+    {
+      return false;
+      //esto se ejecuta si la columna 4, fila 5 NO tiene una mina
+    }
+  }
 }
 
 function mostrarMinas()
 {
-  // Modificar/completar
+  
 }
 
 function contarMinasAlrededor(columna, fila)
 {
   return 9;   //Esto hace que SIEMPRE cuente 9 minas alrededor. Modificar/completar
 }
+
+
+/*
+for i in range(1, 10):
+  accion
+
+for(var contador=0 ; contador < 50 ; contador++)
+{
+  acciones
+}
+
+for(inicializacion; condicion_mientras_que_se_cumple_lo_hace ; paso)
+{
+
+}
+
+
+*/
