@@ -40,6 +40,8 @@ function draw() {
     if (mouseButton == LEFT)
     {
       if (tieneMinaCasillero(columnaPresionada, filaPresionada)){
+        mostrarMinas();
+        pintarCasillero(columnaPresionada, filaPresionada, COLOR_CASILLERO_CON_MINA);
         perder();
       }
       if(descubrirCasillero(columnaPresionada, filaPresionada))
@@ -69,27 +71,32 @@ function ganoElJuego()
 
 function ponerMinasTablero()
 {
-  for (var i = 0; i < 10; i++)
-  {
-    numeroAleatorio = floor(random(0, 10));
-    numeroAleatorio2 = floor(random(0, 10));
+  for (var i = 0; i < CANTIDAD_MINAS; i++){
+    numeroAleatorio =  Math.floor(Math.random() * 10);
+    numeroAleatorio2 = Math.floor(Math.random() * 10);
+    console.log(numeroAleatorio+", "+numeroAleatorio2)
     ponerMinaCasillero(numeroAleatorio, numeroAleatorio2);
-    if(tieneMinaCasillero(numeroAleatorio, numeroAleatorio2))
-    {
-      return true;
-      //esto se ejecuta si tiene una mina
-    }
-    else
-    {
-      return false;
-      //esto se ejecuta si la columna 4, fila 5 NO tiene una mina
+
+    
+
+    if (tieneMinaCasillero(numeroAleatorio, numeroAleatorio2) == false){
+      console.log("se repitio una mina")
     }
   }
-}
+} 
+
 
 function mostrarMinas()
 {
-  
+  for (var contC = 0; contC < COLUMNAS; contC++){
+    for (var contF = 0; contF < FILAS; contF++){
+      if (tieneMinaCasillero(contC, contF)){
+        pintarCasillero(contC, contF, COLOR_CASILLERO_CON_MINA);
+        
+      }
+    }
+  }
+
 }
 
 function contarMinasAlrededor(columna, fila)
